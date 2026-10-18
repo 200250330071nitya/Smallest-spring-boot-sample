@@ -1,0 +1,52 @@
+pipeline:
+  name: new-ci-19
+  identifier: newci19
+  projectIdentifier: LBGHarnessTraining
+  orgIdentifier: default
+  tags: {}
+  properties:
+    ci:
+      codebase:
+        connectorRef: Githubconndemo
+        build: <+input>
+  stages:
+    - stage:
+        name: build
+        identifier: build
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          caching:
+            enabled: true
+            override: false
+          infrastructure:
+            type: KubernetesDirect
+            spec:
+              connectorRef: K8sconnector
+              namespace: default
+              automountServiceAccountToken: true
+              nodeSelector: {}
+              os: Linux
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: Run_1
+                  identifier: Run_1
+                  spec:
+                    connectorRef: account.Docker_Connector
+                    image: alpine:latest
+                    shell: Bash
+                    command: |-
+                      echo "Welcome to Harness CI"
+
+                      echo "My first pipeline"
+
+                      date
+
+                      hostname
+
+                      pwd
+
+                      ls -lrt
