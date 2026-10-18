@@ -36,17 +36,9 @@ pipeline:
                   identifier: Run_1
                   spec:
                     connectorRef: account.Docker_Connector
-                    image: alpine:latest
+                    image: maven:3.9-eclipse-temurin-17
                     shell: Bash
                     command: |-
-                      echo "Welcome to Harness CI"
-
-                      echo "My first pipeline"
-
-                      date
-
-                      hostname
-
-                      pwd
-
-                      ls -lrt
+                      cd SmallestSpringApp  
+                      mvn -B clean package
+                      mvn -B test
