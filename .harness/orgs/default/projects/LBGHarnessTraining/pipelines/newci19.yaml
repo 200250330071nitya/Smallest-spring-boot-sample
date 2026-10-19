@@ -42,3 +42,14 @@ pipeline:
                       cd SmallestSpringApp  
                       mvn -B clean package
                       mvn -B test
+              - step:
+                  type: BuildAndPushDockerRegistry
+                  name: Build_Push_Docker
+                  identifier: Build_Push_Docker
+                  spec:
+                    connectorRef: Dockerhubconnector
+                    repo: smm42947/spring-boot-artifacts
+                    tags:
+                      - v1.0.1
+                    dockerfile: Dockerfile
+                    context: SmallestSpringApp
