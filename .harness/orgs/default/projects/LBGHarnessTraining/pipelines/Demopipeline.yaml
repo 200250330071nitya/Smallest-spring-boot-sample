@@ -1,0 +1,44 @@
+pipeline:
+  name: Demo-pipeline
+  identifier: Demopipeline
+  projectIdentifier: LBGHarnessTraining
+  orgIdentifier: default
+  tags: {}
+  properties:
+    ci:
+      codebase:
+        connectorRef: Githubtestconn
+        build: <+input>
+  stages:
+    - stage:
+        name: Build
+        identifier: Build
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          caching:
+            enabled: true
+            override: false
+          infrastructure:
+            type: KubernetesDirect
+            spec:
+              connectorRef: K8sconnector
+              namespace: default
+              automountServiceAccountToken: true
+              nodeSelector: {}
+              os: Linux
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: Maven-build
+                  identifier: Mavenbuild
+                  spec:
+                    connectorRef: account.Docker_Connector
+                    image: maven:3.9-eclipse-temurin-17
+                    shell: Bash
+                    command: |-
+                      cd SmallestSpringApp  
+                      mvn -B clean package  
+                      mvn -B test
