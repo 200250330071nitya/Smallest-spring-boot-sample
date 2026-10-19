@@ -1,4 +1,4 @@
 FROM eclipse-temurin:11-jre as runtime 
 WORKDIR /app 
-COPY target/example.smallest-0.0.1-SNAPSHOT.jar app.jar 
+COPY target/smallest-spring-app-1.0.0.jar /app/app.jar
 ENTRYPOINT ["java","-jar","app.jar"] 
