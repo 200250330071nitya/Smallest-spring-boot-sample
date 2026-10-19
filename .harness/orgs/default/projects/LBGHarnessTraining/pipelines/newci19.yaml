@@ -52,4 +52,3 @@ pipeline:
                     tags:
                       - v1.0.1
                     dockerfile: Dockerfile
-                    context: /harness/SmallestSpringApp/
